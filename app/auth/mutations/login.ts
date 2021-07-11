@@ -25,7 +25,22 @@ export default resolver.pipe(resolver.zod(Login), async ({ email, password }, ct
   // This throws an error if credentials are invalid
   const user = await authenticateUser(email, password)
 
-  await ctx.session.$create({ userId: user.id, role: user.role as Role })
+  const organization = await db.organization.findFirst({
+    where: {
+      id: user.memberships[0].organizationId,
+    },
+  })
+
+  if (!organization) {
+    throw new Error("User not associated to an organization")
+  }
+
+  await ctx.session.$create({
+    userId: user.id,
+    roles: [user.role, user.memberships[0].role],
+    orgId: user.memberships[0].organizationId,
+    subscriptionStatus: organization.subscriptionStatus,
+  })
 
   return user
 })

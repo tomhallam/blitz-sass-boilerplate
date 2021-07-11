@@ -4,10 +4,22 @@ import db from "db"
 export default async function getCurrentUser(_ = null, { session }: Ctx) {
   if (!session.userId) return null
 
-  const user = await db.user.findFirst({
-    where: { id: session.userId },
-    select: { id: true, name: true, email: true, role: true },
+  const organization = await db.organization.findFirst({
+    where: {
+      id: session.organizationId,
+    },
+    select: { subscriptionStatus: true, price: true },
   })
 
-  return user
+  const user = await db.user.findFirst({
+    where: { id: session.userId },
+    select: { id: true, name: true, email: true, role: true, memberships: true },
+  })
+
+  return {
+    ...user,
+    price: organization?.price,
+    subscriptionStatus: organization?.subscriptionStatus,
+    currentOrganizationId: session.organizationId,
+  }
 }
