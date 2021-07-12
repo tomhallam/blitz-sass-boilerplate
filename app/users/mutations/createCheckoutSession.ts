@@ -1,10 +1,10 @@
-import stripe, { env } from "integrations/stripe"
-import { Ctx } from "blitz"
-import db from "db"
+import stripe, { env } from "integrations/stripe";
+import { Ctx } from "blitz";
+import db from "db";
 
 type CreateCheckoutSessionInput = {
-  priceId: string
-}
+  priceId: string;
+};
 
 // Step 4: Create a Checkout Session
 // https://stripe.com/docs/billing/subscriptions/checkout#create-session
@@ -12,7 +12,7 @@ export default async function createCheckoutSession(
   { priceId }: CreateCheckoutSessionInput,
   ctx: Ctx
 ) {
-  ctx.session.$authorize()
+  ctx.session.$authorize();
 
   const organization = await db.organization.findFirst({
     where: {
@@ -22,7 +22,7 @@ export default async function createCheckoutSession(
       stripeCustomerId: true,
       subscriptionStatus: true,
     },
-  })
+  });
 
   const user = await db.user.findFirst({
     where: {
@@ -31,22 +31,22 @@ export default async function createCheckoutSession(
     select: {
       email: true,
     },
-  })
+  });
 
   if (!organization || !user) {
-    throw new Error("Organization or User not found")
+    throw new Error("Organization or User not found");
   }
 
   const customer = await stripe.customers.create({
     email: user.email,
-  })
+  });
 
   await db.organization.update({
     where: { id: ctx.session.organizationId },
     data: {
       stripeCustomerId: customer.id,
     },
-  })
+  });
 
   const session = await stripe.checkout.sessions.create({
     customer: customer.id,
@@ -64,9 +64,9 @@ export default async function createCheckoutSession(
     },
     success_url: `${env.DOMAIN}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${env.DOMAIN}/billing/cancelled`,
-  })
+  });
 
   return {
     sessionId: session.id,
-  }
+  };
 }

@@ -1,18 +1,18 @@
-import { ReactNode, PropsWithoutRef } from "react"
-import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
-import { z } from "zod"
-import { validateZodSchema } from "blitz"
-export { FORM_ERROR } from "final-form"
+import { ReactNode, PropsWithoutRef } from "react";
+import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form";
+import { z } from "zod";
+import { validateZodSchema } from "blitz";
+export { FORM_ERROR } from "final-form";
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
   /** All your form fields */
-  children?: ReactNode
+  children?: ReactNode;
   /** Text to display in the submit button */
-  submitText?: string
-  schema?: S
-  onSubmit: FinalFormProps<z.infer<S>>["onSubmit"]
-  initialValues?: FinalFormProps<z.infer<S>>["initialValues"]
+  submitText?: string;
+  schema?: S;
+  onSubmit: FinalFormProps<z.infer<S>>["onSubmit"];
+  initialValues?: FinalFormProps<z.infer<S>>["initialValues"];
 }
 
 export function Form<S extends z.ZodType<any, any>>({
@@ -53,7 +53,7 @@ export function Form<S extends z.ZodType<any, any>>({
         </form>
       )}
     />
-  )
+  );
 }
 
-export default Form
+export default Form;

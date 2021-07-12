@@ -1,5 +1,5 @@
-import { Link, BlitzPage } from "blitz"
-import Layout from "app/core/layouts/Layout"
+import { Link, BlitzPage } from "blitz";
+import Layout from "app/core/layouts/Layout";
 
 const Success: BlitzPage = () => {
   return (
@@ -11,10 +11,10 @@ const Success: BlitzPage = () => {
         </Link>
       </main>
     </div>
-  )
-}
+  );
+};
 
-Success.suppressFirstRenderFlicker = true
-Success.getLayout = (page) => <Layout title="Success">{page}</Layout>
+Success.suppressFirstRenderFlicker = true;
+Success.getLayout = (page) => <Layout title="Success">{page}</Layout>;
 
-export default Success
+export default Success;

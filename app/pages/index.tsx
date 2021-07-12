@@ -1,12 +1,12 @@
-import { Suspense } from "react"
-import { Link, BlitzPage, useMutation, Routes } from "blitz"
-import { loadStripe } from "@stripe/stripe-js"
-import Layout from "app/core/layouts/Layout"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
-import logout from "app/auth/mutations/logout"
+import { Suspense } from "react";
+import { Link, BlitzPage, useMutation, Routes } from "blitz";
+import { loadStripe } from "@stripe/stripe-js";
+import Layout from "app/core/layouts/Layout";
+import { useCurrentUser } from "app/core/hooks/useCurrentUser";
+import logout from "app/auth/mutations/logout";
 
-import createCheckoutSession from "app/users/mutations/createCheckoutSession"
-import customerPortal from "app/users/mutations/customerPortal"
+import createCheckoutSession from "app/users/mutations/createCheckoutSession";
+import customerPortal from "app/users/mutations/customerPortal";
 
 /*
  * This file is just for a pleasant getting started page for your new app.
@@ -14,10 +14,10 @@ import customerPortal from "app/users/mutations/customerPortal"
  */
 
 const UserInfo = () => {
-  const currentUser = useCurrentUser()
-  const [logoutMutation] = useMutation(logout)
-  const [createCheckoutSessionMutation] = useMutation(createCheckoutSession)
-  const [customerPortalMutation] = useMutation(customerPortal)
+  const currentUser = useCurrentUser();
+  const [logoutMutation] = useMutation(logout);
+  const [createCheckoutSessionMutation] = useMutation(createCheckoutSession);
+  const [customerPortalMutation] = useMutation(customerPortal);
 
   if (currentUser) {
     return (
@@ -25,7 +25,7 @@ const UserInfo = () => {
         <button
           className="button small"
           onClick={async () => {
-            await logoutMutation()
+            await logoutMutation();
           }}
         >
           Logout
@@ -34,23 +34,23 @@ const UserInfo = () => {
           className="button small"
           onClick={async () => {
             if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-              throw new Error("Stripe publishable key missing")
+              throw new Error("Stripe publishable key missing");
             }
             if (!process.env.NEXT_PUBLIC_STRIPE_PRICE_ID) {
-              throw new Error("Stripe publishable key missing")
+              throw new Error("Stripe publishable key missing");
             }
-            const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+            const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
             const { sessionId } = await createCheckoutSessionMutation({
               priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
-            })
+            });
             if (!stripe) {
-              throw new Error("Stripe could not be loaded")
+              throw new Error("Stripe could not be loaded");
             }
             const result = await stripe.redirectToCheckout({
               sessionId,
-            })
+            });
             if (result.error) {
-              console.error(result.error.message)
+              console.error(result.error.message);
             }
           }}
         >
@@ -60,8 +60,8 @@ const UserInfo = () => {
           <button
             className="button small"
             onClick={async () => {
-              const { url } = await customerPortalMutation()
-              window.location.href = url
+              const { url } = await customerPortalMutation();
+              window.location.href = url;
             }}
           >
             Manage billing
@@ -76,7 +76,7 @@ const UserInfo = () => {
           Subscription status: <code>{currentUser.subscriptionStatus}</code>
         </div>
       </>
-    )
+    );
   } else {
     return (
       <>
@@ -91,9 +91,9 @@ const UserInfo = () => {
           </a>
         </Link>
       </>
-    )
+    );
   }
-}
+};
 
 const Home: BlitzPage = () => {
   return (
@@ -308,10 +308,10 @@ const Home: BlitzPage = () => {
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-Home.suppressFirstRenderFlicker = true
-Home.getLayout = (page) => <Layout title="Home">{page}</Layout>
+Home.suppressFirstRenderFlicker = true;
+Home.getLayout = (page) => <Layout title="Home">{page}</Layout>;
 
-export default Home
+export default Home;
