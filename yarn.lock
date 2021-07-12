@@ -484,6 +484,14 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@blitz-guard/core@0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@blitz-guard/core/-/core-0.3.1.tgz#9491611df4df1a3b7bf6446973b6db79b8860b60"
+  integrity sha512-bNKQQXAkBIvFJVtxnyTQ/VV8ZKXd79wcfbRD9WM/QnVjK7hw5aAjQYuRj8aSyPeaOOLUYyNIT0LqRR9LLWrSmg==
+  dependencies:
+    runtypes "^5.0.1"
+    tslib "2.1.0"
+
 "@blitzjs/babel-preset@0.38.5":
   version "0.38.5"
   resolved "https://registry.yarnpkg.com/@blitzjs/babel-preset/-/babel-preset-0.38.5.tgz#5acabe9a2e7548f86f365f965b473f48cae6e8f7"
@@ -8378,6 +8386,11 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
+runtypes@^5.0.1:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/runtypes/-/runtypes-5.2.0.tgz#1751a17860807873f0fddb4b15a5cd80fe574947"
+  integrity sha512-ArcmkYvNWkHrwg4Ic7St365oUGAkiIcs6vNmoRNzADv7nBhrTQC8C562TYnIV9nxxMxdmAAHsehD78xuWeYPJA==
+
 rxjs@^6.6.7:
   version "6.6.7"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
@@ -9406,6 +9419,11 @@ tsconfig-paths@^3.9.0:
     json5 "^2.2.0"
     minimist "^1.2.0"
     strip-bom "^3.0.0"
+
+tslib@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.14.1"

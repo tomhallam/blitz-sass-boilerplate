@@ -1,4 +1,6 @@
 import stripe, { env } from "integrations/stripe";
+import Guard from "app/guard/ability";
+
 import { Ctx } from "blitz";
 import db from "db";
 
@@ -8,10 +10,7 @@ type CreateCheckoutSessionInput = {
 
 // Step 4: Create a Checkout Session
 // https://stripe.com/docs/billing/subscriptions/checkout#create-session
-export default async function createCheckoutSession(
-  { priceId }: CreateCheckoutSessionInput,
-  ctx: Ctx
-) {
+async function createCheckoutSession({ priceId }: CreateCheckoutSessionInput, ctx: Ctx) {
   ctx.session.$authorize();
 
   const organization = await db.organization.findFirst({
@@ -70,3 +69,5 @@ export default async function createCheckoutSession(
     sessionId: session.id,
   };
 }
+
+export default Guard.authorize("update", "organization", createCheckoutSession);

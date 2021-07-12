@@ -49,7 +49,9 @@ const UserInfo = () => {
             const result = await stripe.redirectToCheckout({
               sessionId,
             });
+
             if (result.error) {
+              alert("trouble");
               console.error(result.error.message);
             }
           }}

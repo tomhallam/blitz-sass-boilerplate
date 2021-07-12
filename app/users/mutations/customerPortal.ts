@@ -1,11 +1,13 @@
 import stripe, { env } from "integrations/stripe";
+import Guard from "app/guard/ability";
+
 import { Ctx } from "blitz";
 import db from "db";
 
 interface CustomerPortalInput {}
 
 // https://stripe.com/docs/billing/subscriptions/checkout#customer-portal
-export default async function customerPortalInput(_input: CustomerPortalInput, ctx: Ctx) {
+async function customerPortalInput(_input: CustomerPortalInput, ctx: Ctx) {
   ctx.session.$authorize();
 
   const organization = await db.organization.findFirst({
@@ -33,3 +35,5 @@ export default async function customerPortalInput(_input: CustomerPortalInput, c
     url: portalsession.url,
   };
 }
+
+export default Guard.authorize("update", "organization", customerPortalInput);

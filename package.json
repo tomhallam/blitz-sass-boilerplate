@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "@blitz-guard/core": "0.3.1",
     "@prisma/client": "2.26.0",
     "@stripe/stripe-js": "1.16.0",
     "blitz": "0.38.5",
