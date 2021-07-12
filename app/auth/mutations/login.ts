@@ -6,7 +6,7 @@ import { Role } from "types";
 export const authenticateUser = async (rawEmail: string, rawPassword: string) => {
   const email = rawEmail.toLowerCase().trim();
   const password = rawPassword.trim();
-  const user = await db.user.findFirst({ where: { email } });
+  const user = await db.user.findFirst({ where: { email }, include: { memberships: true } });
   if (!user) throw new AuthenticationError();
 
   const result = await SecurePassword.verify(user.hashedPassword, password);

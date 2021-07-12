@@ -44,8 +44,20 @@ describe("resetPassword mutation", () => {
             },
           ],
         },
+        memberships: {
+          create: {
+            role: "OWNER",
+            organization: {
+              create: {
+                name: "testorg",
+                slug: "testorg",
+                role: "CUSTOMER",
+              },
+            },
+          },
+        },
       },
-      include: { tokens: true },
+      include: { tokens: true, memberships: true },
     });
 
     const newPassword = "newPassword";
