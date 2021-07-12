@@ -15,7 +15,7 @@
     "schema": "db/schema.prisma"
   },
   "prettier": {
-    "semi": false,
+    "semi": true,
     "printWidth": 100
   },
   "lint-staged": {
